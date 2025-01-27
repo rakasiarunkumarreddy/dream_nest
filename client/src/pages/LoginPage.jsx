@@ -19,7 +19,7 @@ const LoginPage = () => {
     e.preventDefault()
 
     try {
-      const response = await fetch (baseUrl, {
+      const response = await fetch (`${baseUrl}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

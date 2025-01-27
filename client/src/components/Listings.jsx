@@ -6,12 +6,11 @@ import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setListings } from "../redux/state";
 
-import {baseUrl} from "../Urls"
+import { baseUrl } from "../Urls";
 
 const Listings = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const listings = useSelector((state) => state.listings);
@@ -69,7 +68,7 @@ const Listings = () => {
               category,
               type,
               price,
-              booking=false
+              booking = false,
             }) => (
               <ListingCard
                 listingId={_id}
