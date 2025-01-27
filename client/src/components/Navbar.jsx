@@ -57,7 +57,7 @@ const Navbar = () => {
             <img
               src={
                 user?.profileImagePath
-                  ? `http://localhost:3001/${user.profileImagePath.replace(
+                  ? `https://dream-nest-6ukz.onrender.com/${user.profileImagePath.replace(
                       "public",
                       ""
                     )}`

@@ -78,8 +78,8 @@ const ListingCard = ({
           {listingPhotoPaths?.map((photo, index) => (
             <div key={index} className="slide">
               <img
-                src={`http://localhost:3001/${photo?.replace("public", "")}`}
-                alt={`photo ${index + 1}`}
+              src={`https://dream-nest-6ukz.onrender.com/${photo?.replace("public", "")}`}
+              alt={`photo ${index + 1}`}
               />
               <div
                 className="prev-button"
