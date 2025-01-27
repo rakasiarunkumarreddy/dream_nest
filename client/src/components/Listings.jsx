@@ -20,8 +20,8 @@ const Listings = () => {
     try {
       const response = await fetch(
         selectedCategory !== "All"
-          ? `${baseUrl}?category=${selectedCategory}`
-          : baseUrl,
+          ? `${baseUrl}/properties?category=${selectedCategory}`
+          : `${baseUrl}/properties`,
         {
           method: "GET",
         }
