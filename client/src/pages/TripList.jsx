@@ -7,6 +7,9 @@ import { setTripList } from "../redux/state";
 import ListingCard from "../components/ListingCard";
 import Footer from "../components/Footer"
 
+import {baseUrl} from "../Urls"
+
+
 const TripList = () => {
   const [loading, setLoading] = useState(true);
   const userId = useSelector((state) => state.user._id);
@@ -17,7 +20,7 @@ const TripList = () => {
   const getTripList = async () => {
     try {
       const response = await fetch(
-        `https://dream-nest-6ukz.onrender.com/users/${userId}/trips`,
+        `${baseUrl}/users/${userId}/trips`,
         {
           method: "GET",
         }

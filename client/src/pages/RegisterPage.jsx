@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import "../styles/Register.scss";
 
+import {baseUrl} from "../Urls"
+
+
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -39,7 +42,7 @@ const RegisterPage = () => {
         register_form.append(key, formData[key])
       }
 
-      const response = await fetch("https://dream-nest-6ukz.onrender.com/auth/register", {
+      const response = await fetch(`${baseUrl}/auth/register`, {
         method: "POST",
         body: register_form
       })

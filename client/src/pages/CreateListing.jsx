@@ -12,6 +12,9 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer"
 
+import {baseUrl} from "../Urls"
+
+
 const CreateListing = () => {
   const [category, setCategory] = useState("");
   const [type, setType] = useState("");
@@ -128,7 +131,7 @@ const CreateListing = () => {
       });
 
       /* Send a POST request to server */
-      const response = await fetch("https://dream-nest-6ukz.onrender.com/properties/create", {
+      const response = await fetch(`${baseUrl}/properties/create`, {
         method: "POST",
         body: listingForm,
       });

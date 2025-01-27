@@ -6,6 +6,8 @@ import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setListings } from "../redux/state";
 
+import {baseUrl} from "../Urls"
+
 const Listings = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -18,8 +20,8 @@ const Listings = () => {
     try {
       const response = await fetch(
         selectedCategory !== "All"
-          ? `https://dream-nest-6ukz.onrender.com?category=${selectedCategory}`
-          : "https://dream-nest-6ukz.onrender.com",
+          ? `${baseUrl}?category=${selectedCategory}`
+          : baseUrl,
         {
           method: "GET",
         }

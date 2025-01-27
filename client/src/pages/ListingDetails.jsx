@@ -11,6 +11,9 @@ import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import Footer from "../components/Footer"
 
+import {baseUrl} from "../Urls"
+
+
 const ListingDetails = () => {
   const [loading, setLoading] = useState(true);
 
@@ -20,7 +23,7 @@ const ListingDetails = () => {
   const getListingDetails = async () => {
     try {
       const response = await fetch(
-        `https://dream-nest-6ukz.onrender.com/properties/${listingId}`,
+        `${baseUrl}/properties/${listingId}`,
         {
           method: "GET",
         }
@@ -75,7 +78,7 @@ const ListingDetails = () => {
         totalPrice: listing.price * dayCount,
       }
 
-      const response = await fetch("https://dream-nest-6ukz.onrender.com/bookings/create", {
+      const response = await fetch(`${baseUrl}/bookings/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,7 +109,7 @@ const ListingDetails = () => {
         <div className="photos">
           {listing.listingPhotoPaths?.map((item) => (
             <img
-              src={`https://dream-nest-6ukz.onrender.com/${item.replace("public", "")}`}
+              src={`${baseUrl}/${item.replace("public", "")}`}
               alt="listing photo"
             />
           ))}
@@ -124,7 +127,7 @@ const ListingDetails = () => {
 
         <div className="profile">
           <img
-            src={`https://dream-nest-6ukz.onrender.com/${listing.creator.profileImagePath.replace(
+            src={`${baseUrl}/${listing.creator.profileImagePath.replace(
               "public",
               ""
             )}`}

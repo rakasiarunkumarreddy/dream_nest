@@ -7,6 +7,9 @@ import { setReservationList } from "../redux/state";
 import ListingCard from "../components/ListingCard";
 import Footer from "../components/Footer"
 
+import {baseUrl} from "../Urls"
+
+
 const ReservationList = () => {
   const [loading, setLoading] = useState(true);
   const userId = useSelector((state) => state.user._id);
@@ -17,7 +20,7 @@ const ReservationList = () => {
   const getReservationList = async () => {
     try {
       const response = await fetch(
-        `https://dream-nest-6ukz.onrender.com/users/${userId}/reservations`,
+        `${baseUrl}/users/${userId}/reservations`,
         {
           method: "GET",
         }

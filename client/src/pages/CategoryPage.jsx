@@ -8,6 +8,9 @@ import Loader from "../components/Loader";
 import ListingCard from "../components/ListingCard";
 import Footer from "../components/Footer"
 
+import {baseUrl} from "../Urls"
+
+
 const CategoryPage = () => {
   const [loading, setLoading] = useState(true);
   const { category } = useParams()
@@ -18,7 +21,7 @@ const CategoryPage = () => {
   const getFeedListings = async () => {
     try {
       const response = await fetch(
-          `https://dream-nest-6ukz.onrender.com/properties?category=${category}`,
+          `${baseUrl}/properties?category=${category}`,
         {
           method: "GET",
         }

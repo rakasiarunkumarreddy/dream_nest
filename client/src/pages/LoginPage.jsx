@@ -4,6 +4,9 @@ import { setLogin } from "../redux/state";
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
+import {baseUrl} from "../Urls"
+
+
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,7 +19,7 @@ const LoginPage = () => {
     e.preventDefault()
 
     try {
-      const response = await fetch ("https://dream-nest-6ukz.onrender.com/auth/login", {
+      const response = await fetch (baseUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
