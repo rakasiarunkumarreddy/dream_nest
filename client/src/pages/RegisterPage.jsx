@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import "../styles/Register.scss";
-
-import {baseUrl} from "../Urls"
-
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -15,45 +12,51 @@ const RegisterPage = () => {
     profileImage: null,
   });
 
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [emailError, setEmailError] = useState(""); // State for email error
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
       [name]: name === "profileImage" ? files[0] : value,
     });
   };
 
-  const [passwordMatch, setPasswordMatch] = useState(true)
-
   useEffect(() => {
-    setPasswordMatch(formData.password === formData.confirmPassword || formData.confirmPassword === "")
-  })
-
-  const navigate = useNavigate()
+    setPasswordMatch(formData.password === formData.confirmPassword || formData.confirmPassword === "");
+  }, [formData.password, formData.confirmPassword]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const register_form = new FormData()
+      const registerForm = new FormData();
 
       for (var key in formData) {
-        register_form.append(key, formData[key])
+        registerForm.append(key, formData[key]);
       }
 
-      const response = await fetch(`${baseUrl}/auth/register`, {
+      const response = await fetch("http://localhost:3001/auth/register", {
         method: "POST",
-        body: register_form
-      })
+        body: registerForm,
+      });
+
+      const result = await response.json();
 
       if (response.ok) {
-        navigate("/login")
+        navigate("/login");
+      } else {
+        // Set the error message from backend if user already exists
+        if (result.message === "User already exists!") {
+          setEmailError("User already exists!"); // Display this message on the UI
+        }
       }
     } catch (err) {
-      console.log("Registration failed", err.message)
+      console.log("Registration failed", err.message);
     }
-  }
+  };
 
   return (
     <div className="register">
@@ -98,9 +101,7 @@ const RegisterPage = () => {
             required
           />
 
-          {!passwordMatch && (
-            <p style={{ color: "red" }}>Passwords are not matched!</p>
-          )}
+          {!passwordMatch && <p style={{ color: "red" }}>Passwords do not match!</p>}
 
           <input
             id="image"
@@ -123,8 +124,14 @@ const RegisterPage = () => {
               style={{ maxWidth: "80px" }}
             />
           )}
-          <button type="submit" disabled={!passwordMatch}>REGISTER</button>
+
+          <button type="submit" disabled={!passwordMatch}>
+            REGISTER
+          </button>
         </form>
+
+        {emailError && <p style={{ color: "red" }}>{emailError}</p>} {/* Display email error */}
+
         <a href="/login">Already have an account? Log In Here</a>
       </div>
     </div>
