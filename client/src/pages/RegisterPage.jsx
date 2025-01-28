@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Register.scss";
+import { baseUrl } from "../Urls";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -13,48 +14,55 @@ const RegisterPage = () => {
   });
 
   const [passwordMatch, setPasswordMatch] = useState(true);
-  const [emailError, setEmailError] = useState(""); // State for email error
+  const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState(""); // Email error state
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: name === "profileImage" ? files[0] : value,
-    });
-  };
 
   useEffect(() => {
     setPasswordMatch(formData.password === formData.confirmPassword || formData.confirmPassword === "");
   }, [formData.password, formData.confirmPassword]);
 
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "profileImage" ? files[0] : value, // Ensure correct value for file
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setEmailError(""); // Reset email error message before submission
 
     try {
-      const registerForm = new FormData();
-
-      for (var key in formData) {
-        registerForm.append(key, formData[key]);
+      const register_form = new FormData();
+      for (let key in formData) {
+        register_form.append(key, formData[key]);
       }
 
-      const response = await fetch("http://localhost:3001/auth/register", {
+      const response = await fetch(`${baseUrl}/auth/register`, {
         method: "POST",
-        body: registerForm,
+        body: register_form,
       });
 
       const result = await response.json();
 
       if (response.ok) {
+        alert("Registration successful! Please log in.");
         navigate("/login");
       } else {
-        // Set the error message from backend if user already exists
         if (result.message === "User already exists!") {
-          setEmailError("User already exists!"); // Display this message on the UI
+          setEmailError("User already exists! Please use a different email.");
+        } else {
+          alert(result.message || "Registration failed! Please try again.");
         }
       }
     } catch (err) {
       console.log("Registration failed", err.message);
+      alert("An error occurred! Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -101,7 +109,9 @@ const RegisterPage = () => {
             required
           />
 
-          {!passwordMatch && <p style={{ color: "red" }}>Passwords do not match!</p>}
+          {!passwordMatch && (
+            <p style={{ color: "red" }}>Passwords do not match!</p>
+          )}
 
           <input
             id="image"
@@ -125,13 +135,12 @@ const RegisterPage = () => {
             />
           )}
 
-          <button type="submit" disabled={!passwordMatch}>
-            REGISTER
+          {emailError && <p style={{ color: "red" }}>{emailError}</p>} {/* Display email error */}
+
+          <button type="submit" disabled={!passwordMatch || loading}>
+            {loading ? "Submitting..." : "REGISTER"}
           </button>
         </form>
-
-        {emailError && <p style={{ color: "red" }}>{emailError}</p>} {/* Display email error */}
-
         <a href="/login">Already have an account? Log In Here</a>
       </div>
     </div>
