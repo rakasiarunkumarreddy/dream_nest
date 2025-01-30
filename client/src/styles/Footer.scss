@@ -12,13 +12,6 @@
     padding: 10px 30px;
   }
 
-  @include sm {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 10px 20px;
-  }
-
   &_left {
     max-width: 400px;
 
@@ -59,7 +52,7 @@
       cursor: pointer;
 
       li:hover {
-        color: $pinkred;
+        color: $pinkred
       }
 
       a {
@@ -95,42 +88,6 @@
 
     @include sm {
       display: none;
-    }
-  }
-}
-
-// Media query for 320px width screens
-@media (max-width: 320px) {
-  .footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-    padding: 10px 10px;
-
-    &_left,
-    &_right {
-      max-width: 100%;
-
-      img {
-        max-width: 100px;
-      }
-
-      &_socials {
-        gap: 15px;
-
-        &_icon {
-          width: 30px;
-          height: 30px;
-        }
-      }
-    }
-
-    &_center ul {
-      margin-top: 10px;
-
-      a {
-        font-size: 14px;
-      }
     }
   }
 }
