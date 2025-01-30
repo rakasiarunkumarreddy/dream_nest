@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Register.scss";
 import { baseUrl } from "../Urls";
+import Alert from "../components/alert"; // Import the Alert component
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -16,10 +17,15 @@ const RegisterPage = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState(""); // Email error state
+  const [alertMessage, setAlertMessage] = useState(""); // Alert message state
+  const [showAlert, setShowAlert] = useState(false); // Show alert state
   const navigate = useNavigate();
 
   useEffect(() => {
-    setPasswordMatch(formData.password === formData.confirmPassword || formData.confirmPassword === "");
+    setPasswordMatch(
+      formData.password === formData.confirmPassword ||
+        formData.confirmPassword === ""
+    );
   }, [formData.password, formData.confirmPassword]);
 
   const handleChange = (e) => {
@@ -49,18 +55,23 @@ const RegisterPage = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert("Registration successful! Please log in.");
-        navigate("/login");
+        setAlertMessage("Registration successful! Please log in.");
+        setShowAlert(true);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000); // Short delay before navigation
       } else {
         if (result.message === "User already exists!") {
           setEmailError("User already exists! Please use a different email.");
         } else {
-          alert(result.message || "Registration failed! Please try again.");
+          setAlertMessage(result.message || "Registration failed! Please try again.");
+          setShowAlert(true);
         }
       }
     } catch (err) {
       console.log("Registration failed", err.message);
-      alert("An error occurred! Please try again.");
+      setAlertMessage("An error occurred! Please try again.");
+      setShowAlert(true);
     } finally {
       setLoading(false);
     }
@@ -69,6 +80,12 @@ const RegisterPage = () => {
   return (
     <div className="register">
       <div className="register_content">
+        {showAlert && (
+          <Alert
+            message={alertMessage}
+            onClose={() => setShowAlert(false)}
+          />
+        )} {/* Display alert message */}
         <form className="register_content_form" onSubmit={handleSubmit}>
           <input
             placeholder="First Name"

@@ -1,0 +1,36 @@
+.alert-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    max-width: 200px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.5s ease-out;
+    z-index: 1000;
+    margin-top:100px;
+  }
+  
+  .alert-content {
+    background: linear-gradient(to right,rgb(119, 15, 77),rgb(51, 44, 184)); /* Gradient background */
+    padding: 2px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    font-size: 1em;
+    padding-top:10px
+  }
+  
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+  

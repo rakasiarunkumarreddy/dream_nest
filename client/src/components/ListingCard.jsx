@@ -115,7 +115,7 @@ const ListingCard = ({
         <>
           <p>{type}</p>
           <p>
-            <span>${price}</span> per night
+            <span>₹{price}</span> per night
           </p>
         </>
       ) : (
@@ -124,7 +124,7 @@ const ListingCard = ({
             {startDate} - {endDate}
           </p>
           <p>
-            <span>${totalPrice}</span> total
+            <span>₹{totalPrice}</span> total
           </p>
         </>
       )}
