@@ -6,7 +6,7 @@ import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setListings } from "../redux/state";
 
-import {baseUrl} from "../Urls"
+import { baseUrl } from "../Urls";
 
 const Listings = () => {
   const dispatch = useDispatch();
@@ -44,7 +44,9 @@ const Listings = () => {
       <div className="category-list">
         {categories?.map((category, index) => (
           <div
-            className={`category ${category.label === selectedCategory ? "selected" : ""}`}
+            className={`category ${
+              category.label === selectedCategory ? "selected" : ""
+            }`}
             key={index}
             onClick={() => setSelectedCategory(category.label)}
           >
@@ -69,9 +71,10 @@ const Listings = () => {
               category,
               type,
               price,
-              booking=false
+              booking = false,
             }) => (
               <ListingCard
+                key={_id} // Add this line
                 listingId={_id}
                 creator={creator}
                 listingPhotoPaths={listingPhotoPaths}
