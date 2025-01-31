@@ -12,47 +12,36 @@
     padding: 10px 30px;
   }
 
+  @include md {
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+  }
+
+  &_left,
+  &_center,
+  &_right {
+    max-width: 100%;
+  }
+
   &_left {
-    max-width: 400px;
-
     img {
-      max-width: 150px;
-      margin-bottom: 20px;
-    }
-
-    &_socials {
-      display: flex;
-      gap: 25px;
-      margin-top: 20px;
-
-      &_icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: $pinkred;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        transition: all 0.5s ease-in-out;
-
-        &:hover {
-          transform: scale(1.2);
-        }
-      }
+      max-width: 100px;
+      margin-bottom: 10px;
     }
   }
 
   &_center {
-    text-decoration: none;
-
     ul {
       list-style: none;
-      margin-top: 20px;
-      cursor: pointer;
+      margin-top: 10px;
 
-      li:hover {
-        color: $pinkred
+      li {
+        cursor: pointer;
+
+        &:hover {
+          color: $pinkred;
+        }
       }
 
       a {
@@ -64,31 +53,43 @@
         }
       }
     }
-
-    @include md {
-      display: flex;
-      flex-direction: row;
-    }
   }
 
   &_right {
-    max-width: 350px;
-
     h3 {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     &_info {
       display: flex;
+      align-items: center;
 
       p {
-        margin-left: 20px;
-        margin-bottom: 15px;
+        margin-left: 10px;
       }
     }
 
-    @include sm {
-      display: flex;
+    img {
+      max-width: 150px;
+      margin-top: 10px;
+    }
+
+
+  }
+
+  @include sm {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+
+    img {
+      max-width: 190px;
+      margin-top: 10px;
+    } 
+
+    &_right{
+      margin-left:30px;
     }
   }
+
 }

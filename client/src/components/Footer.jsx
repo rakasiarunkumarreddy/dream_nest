@@ -1,5 +1,6 @@
-import "../styles/Footer.scss"
-import { LocationOn, LocalPhone, Email } from "@mui/icons-material"
+import "../styles/Footer.scss";
+import { LocationOn, LocalPhone, Email } from "@mui/icons-material";
+
 const Footer = () => {
   return (
     <div className="footer">
@@ -29,7 +30,7 @@ const Footer = () => {
         <img src="/assets/payment.png" alt="payment" />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

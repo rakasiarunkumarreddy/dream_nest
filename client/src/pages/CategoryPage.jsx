@@ -6,22 +6,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { setListings } from "../redux/state";
 import Loader from "../components/Loader";
 import ListingCard from "../components/ListingCard";
-import Footer from "../components/Footer"
-
-import {baseUrl} from "../Urls"
-
+import Footer from "../components/Footer";
+import { baseUrl } from "../Urls";
 
 const CategoryPage = () => {
   const [loading, setLoading] = useState(true);
-  const { category } = useParams()
+  const { category } = useParams();
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const listings = useSelector((state) => state.listings);
 
   const getFeedListings = async () => {
     try {
       const response = await fetch(
-          `${baseUrl}/properties?category=${category}`,
+        `${baseUrl}/properties?category=${category}`,
         {
           method: "GET",
         }
@@ -60,6 +58,7 @@ const CategoryPage = () => {
             booking = false,
           }) => (
             <ListingCard
+              key={_id} // Add unique key prop here
               listingId={_id}
               creator={creator}
               listingPhotoPaths={listingPhotoPaths}
